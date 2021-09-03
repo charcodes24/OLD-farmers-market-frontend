@@ -1,15 +1,8 @@
-import { useEffect, useState } from 'react';
+
 
 import VendorCard from './VendorCard';
 
-export default function HomePage() {
-    const [vendors, setVendors] = useState([])
-
-    useEffect(() => {
-        fetch('/vendors')
-        .then(res => res.json())
-        .then(data => setVendors(data))
-    }, []);
+export default function HomePage({ vendors }) {
 
     const displayVendors = vendors.map((vendor) => {
         return <VendorCard
