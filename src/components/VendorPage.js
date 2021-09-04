@@ -1,15 +1,27 @@
-import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux"
+import { useParams } from "react-router"
+import { useEffect } from "react"
 
-export default function VendorPage({ vendors }) {
-    const { name } = useParams();
+import { getVendor } from "../features/vendor/vendorSlice"
 
-    console.log(vendors)
 
-    const newName = name.replaceAll("_", " ");
+export default function VendorPage() {
+    const { id } = useParams()
+    const vendor = useSelector(state => state = state.vendor.vendor)
+    const dispatch = useDispatch()
+    // const newName = name.replaceAll('_', ' ')
+
+    useEffect(() => {
+        dispatch(getVendor(`${id}`))
+    }, []);
+
+    console.log('VendorPage', vendor)
+
 
     return (
       <div>
-        <h1>{newName}</h1>
+            <h1>{vendor.name}</h1>
+            <p>{vendor.description}</p>
       </div>
     );
 }

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+
 import { Switch, Route } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
@@ -7,21 +8,15 @@ import VendorPage from './components/VendorPage';
 import './App.css';
 
 function App() {
-    const [vendors, setVendors] = useState([]);
-
-    useEffect(() => {
-      fetch("/vendors")
-        .then((res) => res.json())
-        .then((data) => setVendors(data));
-    }, []);
+  
   
   return (
     <Switch>
       <Route exact path="/">
-        <HomePage vendors={vendors}/>
+        <HomePage />
       </Route>
-      <Route path="/vendors/:name">
-        <VendorPage vendors={vendors}/>
+      <Route path="/vendors/:id">
+        <VendorPage />
       </Route>
    </Switch>
   );
