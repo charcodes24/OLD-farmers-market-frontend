@@ -1,11 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //thunk dispatches at most two actions: pending, fulfilled, rejected
-export const getVendors = createAsyncThunk("vendor/getVendors", async () => {
-  const response = await fetch("/vendors");
-  const data = await response.json();
-  return data;
-});
+export const getVendors = createAsyncThunk(
+    'vendors/getVendors',
+    async () => {
+        const response = await fetch('/vendors')
+        const data = await response.json()
+        return data
+    }
+)
+
+export const getItems = createAsyncThunk(
+    'vendors/getItems',
+    async (id) => {
+        const response = await fetch(`/vendors/${id}/items`)
+        const data = await response.json()
+        console.log('DEBUGGER===', data)
+        return data
+    }
+)
 
 export const getItems = createAsyncThunk("vendor/getItems", async (id) => {
   const response = await fetch(`/vendors/${id}/items`);
@@ -18,8 +31,6 @@ export const vendorSlice = createSlice({
   initialState: {
     vendorList: [],
     items: [],
-    isLoading: false,
-    hasError: false,
   },
   extraReducers: {
     [getVendors.pending]: (state) => {
@@ -50,6 +61,7 @@ export const vendorSlice = createSlice({
     },
   },
 });
+
 
 //action creators are generated for each case reducer function
 export const {} = vendorSlice.actions;

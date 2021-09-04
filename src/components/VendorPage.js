@@ -4,37 +4,38 @@ import { useEffect } from "react"
 
 import { getItems } from "../features/vendor/vendorSlice"
 
-import Loading from "./Loading"
-import Items from "./Items"
-
 
 export default function VendorPage() {
     const { id } = useParams()
-    const items = useSelector(state => state.vendor.items)
-    // const { isLoading } = useSelector((state) => state.vendor)
+    const items = useSelector((state) => state.vendor.items)
     const dispatch = useDispatch()
     // const newName = name.replaceAll('_', ' ')
     const isLoading = false
  
 
-    console.log("VENDOR PAGE", items)
 
     useEffect(() => {
         dispatch(getItems(`${id}`))
-    }, [dispatch]);
+    }, []);
+
+    console.log('VendorPage===', items)
 
     console.log('ISLOADING on VENDORPAGE', isLoading)
     console.log('VendorPage===', items)
 
     return (
-        <div>
-            {isLoading ? (
+      <div>
+        <h1>{items[0].vendor.name}</h1>
+        <h4>{items[0].vendor.description}</h4>
+        {items.map((item) => {
+                return (
                 <div>
-                    <Loading />
+                    <p>{item.name}</p>
+                    <img src={item.image_url}/>
+                    <p>${item.price}</p>
                 </div>
-            ) : (
-                <Items />
-            )}
-        </div>
-    )
+                )
+            })}
+      </div>
+    );
 }
