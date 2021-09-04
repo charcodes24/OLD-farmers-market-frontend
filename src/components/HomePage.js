@@ -8,7 +8,7 @@ export default function HomePage() {
     const vendors = useSelector(state=> state.vendor.vendorList)
     const dispatch = useDispatch();
 
-    console.log('VENDOR PAGE', vendors)
+    console.log('HomePage', vendors)
 
     const displayVendors = vendors.map((vendor) => {
         return (

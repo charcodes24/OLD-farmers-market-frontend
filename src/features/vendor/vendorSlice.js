@@ -11,10 +11,10 @@ export const getVendors = createAsyncThunk(
     }
 )
 
-export const getVendor = createAsyncThunk(
+export const getItems = createAsyncThunk(
     'vendors/getVendor',
     async (id) => {
-        const response = await fetch(`/vendors/${id}`)
+        const response = await fetch(`/vendors/${id}/items`)
         const data = await response.json()
         return data
     }
@@ -25,7 +25,7 @@ export const vendorSlice = createSlice({
   name: "vendors",
   initialState: {
     vendorList: [],
-    vendor: {},
+    items: [],
   },
   reducers: {
     getVendor(state, action) {
@@ -48,14 +48,14 @@ export const vendorSlice = createSlice({
     [getVendors.rejected]: (state) => {
       state.status = "failed";
     },
-    [getVendor.pending]: (state) => {
+    [getItems.pending]: (state) => {
       state.status = "loading";
     },
-    [getVendor.fulfilled]: (state, { payload }) => {
-      state.vendor = payload;
+    [getItems.fulfilled]: (state, { payload }) => {
+      state.items = payload;
       state.status = "success";
     },
-    [getVendor.rejected]: (state) => {
+    [getItems.rejected]: (state) => {
       state.status = "failed";
     },
   },
