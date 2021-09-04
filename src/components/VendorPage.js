@@ -7,22 +7,23 @@ import { getItems } from "../features/vendor/vendorSlice"
 
 export default function VendorPage() {
     const { id } = useParams()
-    const items = useSelector(state => state = state.vendor.items)
+    const items = useSelector((state) => state.vendor.items)
     const dispatch = useDispatch()
     // const newName = name.replaceAll('_', ' ')
+
 
     useEffect(() => {
         dispatch(getItems(`${id}`))
     }, []);
 
-    console.log('VendorPage===', items.name)
+    console.log('VendorPage===', items)
 
 
     return (
       <div>
-        <h1>{items.name}</h1>
-        <h4>{items.description}</h4>
-        {items.items.map((item) => {
+        <h1>{items[0].vendor.name}</h1>
+        <h4>{items[0].vendor.description}</h4>
+        {items.map((item) => {
                 return (
                 <div>
                     <p>{item.name}</p>

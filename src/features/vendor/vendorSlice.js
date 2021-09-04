@@ -12,10 +12,11 @@ export const getVendors = createAsyncThunk(
 )
 
 export const getItems = createAsyncThunk(
-    'vendors/getVendor',
+    'vendors/getItems',
     async (id) => {
         const response = await fetch(`/vendors/${id}/items`)
         const data = await response.json()
+        console.log('DEBUGGER===', data)
         return data
     }
 )
@@ -26,16 +27,6 @@ export const vendorSlice = createSlice({
   initialState: {
     vendorList: [],
     items: [],
-  },
-  reducers: {
-    getVendor(state, action) {
-      return (state.vendor = state.vendorList.find(
-        (vendor) => vendor.name === action.payload.name
-      ));
-    },
-    click() {
-      console.log(`I've been clicked!`);
-    },
   },
   extraReducers: {
     [getVendors.pending]: (state) => {
@@ -61,7 +52,8 @@ export const vendorSlice = createSlice({
   },
 });
 
+
 //action creators are generated for each case reducer function
-export const { click } = vendorSlice.actions
+export const {  } = vendorSlice.actions
 
 export default vendorSlice.reducer 
