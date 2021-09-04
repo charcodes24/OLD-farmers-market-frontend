@@ -2,8 +2,10 @@
 import { Switch, Route } from 'react-router';
 import { useSelector } from 'react-redux';
 
+import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
+import CustomerSignUp from './components/CustomerSignUp';
 
 import './App.css';
 
@@ -11,14 +13,20 @@ function App() {
   
   
   return (
-    <Switch>
-      <Route exact path="/">
-        <HomePage />
-      </Route>
-      <Route path="/vendors/:id">
-        <VendorPage />
-      </Route>
-   </Switch>
+    <div>
+      <NavBar />
+      <Switch>
+        <Route path="/vendors/:id">
+          <VendorPage />
+        </Route>
+        <Route path="/signup">
+          <CustomerSignUp />
+        </Route>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+    </div>
   );
 }
 

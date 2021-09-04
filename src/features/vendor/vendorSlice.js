@@ -1,67 +1,57 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //thunk dispatches at most two actions: pending, fulfilled, rejected
-export const getVendors = createAsyncThunk(
-    'vendors/getVendors',
-    async () => {
-        const response = await fetch('/vendors')
-        const data = await response.json()
-        return data
-    }
-)
+export const getVendors = createAsyncThunk("vendor/getVendors", async () => {
+  const response = await fetch("/vendors");
+  const data = await response.json();
+  return data;
+});
 
-export const getVendor = createAsyncThunk(
-    'vendors/getVendor',
-    async (id) => {
-        const response = await fetch(`/vendors/${id}`)
-        const data = await response.json()
-        return data
-    }
-)
-
+export const getItems = createAsyncThunk("vendor/getItems", async (id) => {
+  const response = await fetch(`/vendors/${id}/items`);
+  const data = await response.json();
+  return data 
+});
 
 export const vendorSlice = createSlice({
-  name: "vendors",
+  name: "vendor",
   initialState: {
     vendorList: [],
-    vendor: {},
-  },
-  reducers: {
-    getVendor(state, action) {
-      return (state.vendor = state.vendorList.find(
-        (vendor) => vendor.name === action.payload.name
-      ));
-    },
-    click() {
-      console.log(`I've been clicked!`);
-    },
+    items: [],
+    isLoading: false,
+    hasError: false,
   },
   extraReducers: {
     [getVendors.pending]: (state) => {
-      state.status = "loading";
+      state.isLoading = true;
+      state.hasError = false;
     },
     [getVendors.fulfilled]: (state, { payload }) => {
       state.vendorList = payload;
-      state.status = "success";
+      state.isLoading = false;
+      state.hasError = false;
     },
     [getVendors.rejected]: (state) => {
-      state.status = "failed";
+      state.isLoading = false;
+      state.hasError = true;
     },
-    [getVendor.pending]: (state) => {
-      state.status = "loading";
+    [getItems.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
     },
-    [getVendor.fulfilled]: (state, { payload }) => {
-      state.vendor = payload;
-      state.status = "success";
+    [getItems.fulfilled]: (state, { payload }) => {
+      state.items = payload;
+      state.isLoading = false;
+      state.hasError = false;
     },
-    [getVendor.rejected]: (state) => {
-      state.status = "failed";
+    [getItems.rejected]: (state) => {
+      state.isLoading = true;
+      state.hasError = true;
     },
   },
 });
 
 //action creators are generated for each case reducer function
-export const { click } = vendorSlice.actions
+export const {} = vendorSlice.actions;
 
-export default vendorSlice.reducer 
+export default vendorSlice.reducer;

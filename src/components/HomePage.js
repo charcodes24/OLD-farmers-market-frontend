@@ -8,7 +8,7 @@ export default function HomePage() {
     const vendors = useSelector(state=> state.vendor.vendorList)
     const dispatch = useDispatch();
 
-    console.log('VENDOR PAGE', vendors)
+    console.log('HomePage', vendors)
 
     const displayVendors = vendors.map((vendor) => {
         return (
@@ -23,13 +23,10 @@ export default function HomePage() {
         dispatch(getVendors())
     }, []);
 
-    
-
-
   return (
     <div>
-          <h1>Welcome to the Farmer's Market</h1>
-          {displayVendors}
+      <h1>Welcome to the Farmer's Market</h1>
+      <div className="ui three column grid centered">{displayVendors}</div>
     </div>
   );
 }
