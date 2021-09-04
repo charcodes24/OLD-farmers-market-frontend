@@ -20,11 +20,7 @@ export const getItems = createAsyncThunk(
     }
 )
 
-export const getItems = createAsyncThunk("vendor/getItems", async (id) => {
-  const response = await fetch(`/vendors/${id}/items`);
-  const data = await response.json();
-  return data 
-});
+
 
 export const vendorSlice = createSlice({
   name: "vendor",
