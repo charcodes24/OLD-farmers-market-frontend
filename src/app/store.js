@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
 import vendorReducer from '../features/vendor/vendorSlice'
+import customerReducer from '../features/signup/customerSlice'
 
 
-export default configureStore({
+
+const store = configureStore({
     reducer: {
-      vendor: vendorReducer
+    vendor: vendorReducer,
+    customer: customerReducer
   },
 })
+
+
+export default store 
