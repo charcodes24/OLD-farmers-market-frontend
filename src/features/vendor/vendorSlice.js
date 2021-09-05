@@ -27,6 +27,9 @@ export const vendorSlice = createSlice({
   initialState: {
     vendorList: [],
     items: [],
+    itemVendor: {},
+    isLoading: false,
+    hasError: false
   },
   extraReducers: {
     [getVendors.pending]: (state) => {
@@ -48,11 +51,12 @@ export const vendorSlice = createSlice({
     },
     [getItems.fulfilled]: (state, { payload }) => {
       state.items = payload;
+      state.itemVendor = payload[0].vendor;
       state.isLoading = false;
       state.hasError = false;
     },
     [getItems.rejected]: (state) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.hasError = true;
     },
   },

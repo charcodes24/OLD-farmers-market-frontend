@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVendors } from "../features/vendor/vendorSlice";
 
+import About from "./About";
 import VendorCard from './VendorCard'
 
 export default function HomePage() {
@@ -26,7 +27,8 @@ export default function HomePage() {
   return (
     <div>
       <h1>Welcome to the Farmer's Market</h1>
-      <div className="ui three column grid centered">{displayVendors}</div>
+      <About />
+      <div>{displayVendors}</div>
     </div>
   );
 }
