@@ -1,11 +1,16 @@
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomer } from "../features/signup/customerSlice";
 
 export default function CustomerSignUp() {
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
         username: "",
         password: "",
-        confirmation: ""
+        password_confirmation: ""
     })
+
+    console.log("FORM INFO", form)
 
     function handleInput(e) {
         setForm({
@@ -13,36 +18,46 @@ export default function CustomerSignUp() {
             [e.target.name]: e.target.value
         })
     }
+  
+  
 
-    function handleSubmit(e) {
+  function handleSubmit(e) {
         e.preventDefault();
-        fetch()
-            .then(res => {
-                if (res.ok) {
-                // do something w success
-                } else {
-                    return res.json().then(data => {
-                        //show an error modal/message
-                        console.log(data)
-                    })
-            }
-        })
-
+        dispatch(createCustomer(form));
     }
+ 
 
     return (
+      <div>
         <div>
-            <div>
-                <h1>Welcome! We're excited to have you join our community :).</h1>
-            </div>
-            <div>
-                <form>
-                    <input onChange={handleInput} type="text" name="username" value={form.username} placeholder="name"/>
-                    <input onChange={handleInput} type="text" name="password" value={form.password} placeholder="password" />
-                    <input onChange={handleInput} type="text" name="confirmation" value={form.confirmation} placeholder="re-type password" />
-                    <button>Sign Up!</button>
-                </form>
-            </div>
+          <h1>Welcome! We're excited to have you join our community :).</h1>
         </div>
-    )
+        <div>
+          <form onSubmit={handleSubmit}>
+            <input
+              onChange={handleInput}
+              type="text"
+              name="username"
+              value={form.username}
+              placeholder="name"
+            />
+            <input
+              onChange={handleInput}
+              type="text"
+              name="password"
+              value={form.password}
+              placeholder="password"
+            />
+            <input
+              onChange={handleInput}
+              type="text"
+              name="password_confirmation"
+              value={form.password_confirmation}
+              placeholder="re-type password"
+            />
+            <button>Sign Up!</button>
+          </form>
+        </div>
+      </div>
+    );
 }
