@@ -1,5 +1,6 @@
 * {
   font-family: 'Nixie One', cursive;
+  box-sizing: border-box;
 }
 
 body {
@@ -14,4 +15,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.vendor-card {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }

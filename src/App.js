@@ -6,8 +6,7 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
 import CustomerSignUp from './components/CustomerSignUp';
-
-import './App.css';
+import Cart from './components/Cart';
 
 function App() {
   
@@ -21,6 +20,9 @@ function App() {
         </Route>
         <Route path="/signup">
           <CustomerSignUp />
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
         <Route exact path="/">
           <HomePage />
