@@ -51,6 +51,17 @@ export const customerLogin = createAsyncThunk(
   }
 )
 
+//customer logout 
+export const customerLogout = createAsyncThunk(
+  'customer/customerLogout',
+  async () => {
+   const response = await fetch("/logout", {
+      method: "DELETE"
+   })
+    console.log(response)
+  }
+)
+
 //keep customer logged in 
 export const stayLoggedIn = createAsyncThunk(
   'customer/stayLoggedIn',
@@ -71,9 +82,9 @@ export const customerSlice = createSlice({
     loggedIn: false,
     isLoading: false,
     hasError: false,
+    error: ""
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [createCustomer.pending]: (state) => {
       state.isLoading = true;
@@ -112,6 +123,26 @@ export const customerSlice = createSlice({
       state.hasError = false;
     },
     [customerLogin.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
+    [customerLogout.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [customerLogout.fulfilled]: (state) => {
+      console.log('FULFILLED')
+      state.customer = null;
+      state.loggedIn = false;
+      state.isLoading = false;
+      state.hasError = false;
+    },
+    [customerLogout.rejected]: (state, action) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error.message;
+      }
       state.isLoading = false;
       state.hasError = true;
     },

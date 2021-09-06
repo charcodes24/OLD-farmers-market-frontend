@@ -1,17 +1,25 @@
 import { NavLink } from "react-router-dom"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { customerLogout } from "../features/signup/customerSlice";
 
 export default function NavBar() {
-  const customer = useSelector(state => state.customer)
+  const isLoggedIn = useSelector(state => state.customer.loggedIn)
+  const dispatch = useDispatch();
 
-  console.log(customer)
+  function handleLogOut(e) {
+    e.preventDefault()
+    dispatch(customerLogout())
+  }
+
+
+  console.log("NAVBAR", isLoggedIn)
     return (
       <div>
         <NavLink to="/">Home</NavLink>
-        {customer ? null : <NavLink to="/signup">Sign-Up</NavLink>}
-        {customer ? null : <NavLink to="login">Log-In</NavLink>}
+        {isLoggedIn ? null : <NavLink to="/signup">Sign-Up</NavLink>}
+        {isLoggedIn ? null : <NavLink to="login">Log-In</NavLink>}
         <NavLink to="/cart">Cart</NavLink>
-        {customer ? <button>Sign Out!</button> : null}
+        {isLoggedIn ? <button onClick={handleLogOut}>Sign Out!</button> : null}
       </div>
     );
 }
