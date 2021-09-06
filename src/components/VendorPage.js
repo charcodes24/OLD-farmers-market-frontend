@@ -11,12 +11,13 @@ export default function VendorPage() {
     const { id } = useParams()
     const items = useSelector((state) => state.vendor.items)
     const vendor = useSelector((state) => state.vendor.itemVendor)
-    const isLoading = useSelector((state) => state.vendor.isLoading)
     const dispatch = useDispatch()
+
+   
  
     useEffect(() => {
         dispatch(getItems(`${id}`))
-    }, [dispatch]);
+    }, [id]);
 
     const displayItems = items.map((item) => {
         return (

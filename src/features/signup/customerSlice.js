@@ -10,13 +10,19 @@ export const createCustomer = createAsyncThunk(
                 "Accept": "application/json"
             },
           body: JSON.stringify({
-            customer: {username: form.username,
-            password: form.password,
-            password_confirmation: form.password_confirmation}
+            customer: {
+              username: form.username,
+              password: form.password,
+              password: form.password_confirmation
+            }
             })
         })
-        const data = await response.json()
-        return data 
+      const data = await response.json()
+      console.log("DATA", data)
+      if (data.errors) {
+        console.log('errors!!')
+      } 
+      return data 
     }
 )
 
@@ -26,7 +32,9 @@ export const createCustomer = createAsyncThunk(
 export const customerSlice = createSlice({
   name: "customer",
   initialState: {
-    customer: null,
+    customer: {
+      username: "",
+    },
     isLoading: false,
     hasError: false,
   },
@@ -41,6 +49,7 @@ export const customerSlice = createSlice({
       state.hasError = false;
     },
     [createCustomer.fulfilled]: (state, { payload }) => {
+      state.customer = payload
       state.isLoading = false;
       state.hasError = false;
     },

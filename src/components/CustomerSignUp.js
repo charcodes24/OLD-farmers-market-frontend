@@ -1,16 +1,21 @@
 import { useState } from "react"
+import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomer } from "../features/signup/customerSlice";
+import { createCustomer, customerLogin } from "../features/signup/customerSlice";
 
 export default function CustomerSignUp() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const customer = useSelector(state => state.customer.customer)
     const [form, setForm] = useState({
         username: "",
         password: "",
         password_confirmation: ""
     })
 
-    console.log("FORM INFO", form)
+  console.log("FORM INFO", form)
+  
+   console.log("CUSTOMER", customer);
 
     function handleInput(e) {
         setForm({
@@ -22,9 +27,10 @@ export default function CustomerSignUp() {
   
 
   function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(createCustomer(form));
-    }
+    e.preventDefault();
+    dispatch(createCustomer(form))
+
+  }
  
 
     return (
