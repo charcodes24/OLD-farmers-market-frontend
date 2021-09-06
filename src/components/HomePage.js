@@ -9,6 +9,7 @@ import Loading from "./Loading";
 export default function HomePage() {
   const vendors = useSelector(state => state.vendor.vendorList)
   const isLoading = useSelector(state => state.vendor.isLoading)
+  const customer = useSelector(state => state.customer.customer.username)
   const dispatch = useDispatch();
 
   console.log('HomePage', vendors)
@@ -29,7 +30,7 @@ export default function HomePage() {
   { 
     return isLoading ? <Loading /> : (
       <div>
-        <h1>Welcome to the Farmer's Market</h1>
+        <h1>Welcome to the Farmer's Market {customer ? customer : null}</h1>
         <About />
         <div>{displayVendors}</div>
       </div>

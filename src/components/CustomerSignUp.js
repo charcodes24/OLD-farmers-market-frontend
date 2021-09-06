@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomer, customerLogin } from "../features/signup/customerSlice";
+import { createCustomer } from "../features/signup/customerSlice";
 
 export default function CustomerSignUp() {
   const dispatch = useDispatch();
