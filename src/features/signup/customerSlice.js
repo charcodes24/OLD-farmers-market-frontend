@@ -14,7 +14,7 @@ export const createCustomer = createAsyncThunk(
             customer: {
               username: form.username,
               password: form.password,
-              password: form.password_confirmation
+              password_confirmation: form.password_confirmation
             }
             })
         })

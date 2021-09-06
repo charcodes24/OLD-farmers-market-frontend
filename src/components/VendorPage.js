@@ -5,10 +5,12 @@ import { useEffect } from "react"
 import { getItems } from "../features/vendor/vendorSlice"
 
 import Item from "./Item"
+import Loading from "./Loading"
 
 
 export default function VendorPage() {
     const { id } = useParams()
+    const isLoading = useSelector((state) => state.vendor.isLoading)
     const items = useSelector((state) => state.vendor.items)
     const vendor = useSelector((state) => state.vendor.itemVendor)
     const dispatch = useDispatch()
@@ -28,11 +30,15 @@ export default function VendorPage() {
         )
     })
 
-    return (
-      <div>
+    {
+        return isLoading ? (
+          <Loading />
+        ) : (
+          <div>
             <h1>{vendor.name}</h1>
             {displayItems}
-      </div>
-    );
+          </div>
+        );
+    }
     
 }

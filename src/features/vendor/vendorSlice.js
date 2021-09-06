@@ -20,6 +20,29 @@ export const getItems = createAsyncThunk(
     }
 )
 
+export const createVendor = createAsyncThunk(
+  'vendors/createVendor',
+  async (form) => {
+    const response = await fetch('/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        vendor: {
+          name: form.name,
+          description: form.description,
+          category: form.category,
+          username: form.username,
+          password: form.password,
+          password_confirmation: form.password_confirmation
+        }
+      })
+    })
+  }
+)
+
 
 
 export const vendorSlice = createSlice({
@@ -31,6 +54,8 @@ export const vendorSlice = createSlice({
     isLoading: false,
     hasError: false
   },
+  reducers: {
+  },
   extraReducers: {
     [getVendors.pending]: (state) => {
       state.isLoading = true;
@@ -38,6 +63,8 @@ export const vendorSlice = createSlice({
     },
     [getVendors.fulfilled]: (state, { payload }) => {
       state.vendorList = payload;
+      state.items = [];
+      state.itemVendor = {};
       state.isLoading = false;
       state.hasError = false;
     },
@@ -64,6 +91,6 @@ export const vendorSlice = createSlice({
 
 
 //action creators are generated for each case reducer function
-export const {} = vendorSlice.actions;
+export const { clearItems } = vendorSlice.actions;
 
 export default vendorSlice.reducer;
