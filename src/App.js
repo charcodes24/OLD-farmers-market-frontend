@@ -14,11 +14,18 @@ import CustomerLogin from './components/CustomerLogIn';
 import Cart from './components/Cart';
 
 function App() {
-  const dispatch = useDispatch();
+  // const customer = useSelector(state => state.customer.customer)
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(stayLoggedIn())
-  }, []);
+  // useEffect(() => {
+  //   fetch("/me").then((res) => {
+  //     if (res.ok) {
+  //       res.json().then((customer) => dispatch(stayLoggedIn(customer)))
+  //     }
+  //   })
+  // }, []);
+
+  // console.log('CUSTOMER', customer)
   
   
   return (

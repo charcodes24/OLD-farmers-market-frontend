@@ -40,6 +40,11 @@ export const createVendor = createAsyncThunk(
         }
       })
     })
+    const data = await response.json()
+    console.log("VENDOR DATA", data)
+    if (data.errors) {
+      console.log('errors!!!')
+    }
   }
 )
 

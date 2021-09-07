@@ -12,7 +12,7 @@ export default function HomePage() {
   const customer = useSelector(state => state.customer.customer.username)
   const dispatch = useDispatch();
 
-  console.log('HomePage', vendors)
+  const capitalize = customer.charAt(0).toUpperCase() + customer.substring(1)
 
   const displayVendors = vendors.map((vendor) => {
     return (
@@ -30,7 +30,7 @@ export default function HomePage() {
   { 
     return isLoading ? <Loading /> : (
       <div>
-        <h1>Welcome to the Farmer's Market {customer ? customer : null}</h1>
+        <h1>Welcome to the Farmer's Market {customer ? capitalize : null}</h1>
         <About />
         <div>{displayVendors}</div>
       </div>

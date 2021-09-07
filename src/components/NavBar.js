@@ -17,7 +17,7 @@ export default function NavBar() {
       <div>
         <NavLink to="/">Home</NavLink>
         {isLoggedIn ? null : <NavLink to="/signup">Sign-Up</NavLink>}
-        {isLoggedIn ? null : <NavLink to="login">Log-In</NavLink>}
+        {isLoggedIn ? null : <NavLink to="/login">Log-In</NavLink>}
         <NavLink to="/cart">Cart</NavLink>
         {isLoggedIn ? <button onClick={handleLogOut}>Sign Out!</button> : null}
       </div>

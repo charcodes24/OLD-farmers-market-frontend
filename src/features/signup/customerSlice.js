@@ -43,10 +43,7 @@ export const customerLogin = createAsyncThunk(
       }),
     })
     const data = await response.json()
-    console.log("LOGIN", data)
-    if (data.errors) {
-      console.log('LOGIN ERRORS')
-    }
+    console.log("ERRORS IN LOG IN", data.errors[0])
     return data 
   }
 )
@@ -63,15 +60,18 @@ export const customerLogout = createAsyncThunk(
 )
 
 //keep customer logged in 
-export const stayLoggedIn = createAsyncThunk(
-  'customer/stayLoggedIn',
-  async () => {
-    const response = await fetch('/me')
-    const data = await response.json()
-    console.log("STAYLOGGEDIN", data)
-    return data
-  }
-)
+// export const stayLoggedIn = createAsyncThunk(
+//   'customer/stayLoggedIn',
+//   async () => {
+//     const response = await fetch("/me")
+//     const data = await response
+//     if (data.ok) {
+//       return data.json()
+//     } else {
+//       console.log("ERRORS IN STAYLOGGED IN")
+//     }
+//   }
+// )
 
 export const customerSlice = createSlice({
   name: "customer",
@@ -82,9 +82,27 @@ export const customerSlice = createSlice({
     loggedIn: false,
     isLoading: false,
     hasError: false,
-    error: ""
+    errors: []
   },
-  reducers: {},
+  reducers: {
+    stayLoggedIn(state, { payload }) {
+      state.customer = payload;
+    },
+    logInErrors(state, { payload }) {
+      if (payload.length > 0) {
+        state.errors = payload;
+        state.loggedIn = false;
+        debugger
+      } else {
+        state.customer = payload;
+        console.log("PAYLOAD", payload.errors);
+        state.loggedIn = true;
+      }
+    },
+    logIn(state, { payload }) {
+      state.customer = payload
+    }
+  },
   extraReducers: {
     [createCustomer.pending]: (state) => {
       state.isLoading = true;
@@ -92,6 +110,7 @@ export const customerSlice = createSlice({
     },
     [createCustomer.fulfilled]: (state, { payload }) => {
       state.customer = payload;
+      state.loggedIn = true;
       state.isLoading = false;
       state.hasError = false;
     },
@@ -99,28 +118,33 @@ export const customerSlice = createSlice({
       state.isLoading = false;
       state.hasError = true;
     },
-    [stayLoggedIn.pending]: (state) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [stayLoggedIn.fulfilled]: (state, { payload }) => {
-      state.loggedIn = true;
-      state.isLoading = false;
-      state.hasError = false;
-    },
-    [stayLoggedIn.rejected]: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
+    // [stayLoggedIn.pending]: (state) => {
+    //   state.isLoading = true;
+    //   state.hasError = false;
+    // },
+    // [stayLoggedIn.fulfilled]: (state, { payload }) => {
+    //   state.customer = payload;
+    //   state.loggedIn = true;
+    //   state.isLoading = false;
+    //   state.hasError = false;
+    // },
+    // [stayLoggedIn.rejected]: (state) => {
+    //   state.isLoading = false;
+    //   state.hasError = true;
+    // },
     [customerLogin.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
     },
     [customerLogin.fulfilled]: (state, { payload }) => {
-      state.customer = payload;
-      state.loggedIn = true;
-      state.isLoading = false;
-      state.hasError = false;
+        if (payload.errors) {
+        state.errors = payload;
+        state.loggedIn = false;
+      } else {
+        state.customer = payload;
+        console.log("PAYLOAD", payload.errors);
+        state.loggedIn = true;
+      }
     },
     [customerLogin.rejected]: (state) => {
       state.isLoading = false;
@@ -132,23 +156,20 @@ export const customerSlice = createSlice({
     },
     [customerLogout.fulfilled]: (state) => {
       console.log('FULFILLED')
-      state.customer = null;
+      state.customer = {
+        username: ""
+      };
       state.loggedIn = false;
       state.isLoading = false;
       state.hasError = false;
     },
-    [customerLogout.rejected]: (state, action) => {
-      if (action.payload) {
-        state.error = action.payload.errorMessage;
-      } else {
-        state.error = action.error.message;
-      }
+    [customerLogout.rejected]: (state) => {
       state.isLoading = false;
       state.hasError = true;
     },
   },
 });
 
-export const {  } = customerSlice.actions 
+export const { stayLoggedIn, setFormData, logInErrors, logIn } = customerSlice.actions 
 
 export default customerSlice.reducer;

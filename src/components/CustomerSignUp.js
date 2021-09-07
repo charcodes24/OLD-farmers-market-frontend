@@ -29,7 +29,7 @@ export default function CustomerSignUp() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(createCustomer(form))
-
+    history.push('/')
   }
  
 
