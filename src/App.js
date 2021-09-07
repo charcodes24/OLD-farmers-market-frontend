@@ -1,10 +1,10 @@
 
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { stayLoggedIn } from './features/signup/customerSlice';
+import { logIn } from './features/signup/customerSlice';
 
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
@@ -14,18 +14,19 @@ import CustomerLogin from './components/CustomerLogIn';
 import Cart from './components/Cart';
 
 function App() {
-  // const customer = useSelector(state => state.customer.customer)
-  // const dispatch = useDispatch();
+  const customer = useSelector(state => state.customer.customer)
+  const loggedIn = useSelector(state => state.customer.loggedIn)
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   fetch("/me").then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((customer) => dispatch(stayLoggedIn(customer)))
-  //     }
-  //   })
-  // }, []);
+  useEffect(() => {
+    fetch("/me").then((res) => {
+      if (res.ok) {
+        res.json().then((customer) => dispatch(logIn(customer)))
+      }
+    })
+  }, []);
 
-  // console.log('CUSTOMER', customer)
+  console.log('CUSTOMER', customer)
   
   
   return (
@@ -39,8 +40,7 @@ function App() {
           <CustomerSignUp />
         </Route>
         <Route path="/login">
-          <CustomerLogin />
-        </Route>
+          {loggedIn ? <Redirect to="/" /> : <CustomerLogin />}</Route>
         <Route path="/cart">
           <Cart />
         </Route>

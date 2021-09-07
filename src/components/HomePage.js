@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVendors } from "../features/vendor/vendorSlice";
+import { clearErrors } from "../features/signup/customerSlice";
 
 import About from "./About";
 import VendorCard from './VendorCard'
@@ -12,7 +13,7 @@ export default function HomePage() {
   const customer = useSelector(state => state.customer.customer.username)
   const dispatch = useDispatch();
 
-  const capitalize = customer.charAt(0).toUpperCase() + customer.substring(1)
+  // {customer ? customer.charAt(0).toUpperCase() + customer.substring(1) : null}
 
   const displayVendors = vendors.map((vendor) => {
     return (
@@ -25,16 +26,24 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(getVendors())
+    dispatch(clearErrors())
   }, []);
 
   { 
-    return isLoading ? <Loading /> : (
+    return isLoading ? (
+      <Loading />
+    ) : (
       <div>
-        <h1>Welcome to the Farmer's Market {customer ? capitalize : null}</h1>
+        <h1>
+          Welcome to the Farmer's Market{" "}
+          {customer
+            ? customer.charAt(0).toUpperCase() + customer.substring(1)
+            : null}
+        </h1>
         <About />
         <div>{displayVendors}</div>
       </div>
-    )
+    );
   }
 
 }

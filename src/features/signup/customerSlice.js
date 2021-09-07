@@ -19,10 +19,7 @@ export const createCustomer = createAsyncThunk(
             })
         })
       const data = await response.json()
-      console.log("DATA", data)
-      if (data.errors) {
-        console.log('errors!!')
-      } 
+      console.log("SIGNUP", data)
       return data 
     }
 )
@@ -43,8 +40,9 @@ export const customerLogin = createAsyncThunk(
       }),
     })
     const data = await response.json()
-    console.log("ERRORS IN LOG IN", data.errors[0])
-    return data 
+    console.log("ERRORS IN LOG IN", data)
+    // logInErrors(data)
+    return data
   }
 )
 
@@ -76,23 +74,20 @@ export const customerLogout = createAsyncThunk(
 export const customerSlice = createSlice({
   name: "customer",
   initialState: {
-    customer: {
-      username: "",
-    },
+    customer: {},
     loggedIn: false,
     isLoading: false,
     hasError: false,
-    errors: []
+    errors: [],
   },
   reducers: {
     stayLoggedIn(state, { payload }) {
       state.customer = payload;
     },
     logInErrors(state, { payload }) {
-      if (payload.length > 0) {
+      if (payload === "errors") {
         state.errors = payload;
         state.loggedIn = false;
-        debugger
       } else {
         state.customer = payload;
         console.log("PAYLOAD", payload.errors);
@@ -100,19 +95,27 @@ export const customerSlice = createSlice({
       }
     },
     logIn(state, { payload }) {
-      state.customer = payload
-    }
+      state.customer = payload;
+    },
+    clearErrors(state) {
+      console.log("CLEAR ERRORS REDUCER");
+      state.errors = [];
+    },
   },
   extraReducers: {
     [createCustomer.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
     },
-    [createCustomer.fulfilled]: (state, { payload }) => {
-      state.customer = payload;
-      state.loggedIn = true;
-      state.isLoading = false;
-      state.hasError = false;
+    [customerLogin.fulfilled]: (state, { payload }) => {
+      if (payload.errors) {
+        state.errors = payload;
+        state.loggedIn = false;
+      } else {
+        state.customer = payload;
+        console.log("PAYLOAD", payload);
+        state.loggedIn = true;
+      }
     },
     [createCustomer.rejected]: (state) => {
       state.isLoading = false;
@@ -137,13 +140,17 @@ export const customerSlice = createSlice({
       state.hasError = false;
     },
     [customerLogin.fulfilled]: (state, { payload }) => {
-        if (payload.errors) {
+      if (payload.errors) {
         state.errors = payload;
         state.loggedIn = false;
+        state.hasError = true;
+        state.isLoading = false;
       } else {
         state.customer = payload;
-        console.log("PAYLOAD", payload.errors);
+        console.log("PAYLOAD", payload);
         state.loggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
       }
     },
     [customerLogin.rejected]: (state) => {
@@ -155,9 +162,9 @@ export const customerSlice = createSlice({
       state.hasError = false;
     },
     [customerLogout.fulfilled]: (state) => {
-      console.log('FULFILLED')
+      console.log("FULFILLED");
       state.customer = {
-        username: ""
+        username: "",
       };
       state.loggedIn = false;
       state.isLoading = false;
@@ -170,6 +177,6 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { stayLoggedIn, setFormData, logInErrors, logIn } = customerSlice.actions 
+export const { stayLoggedIn, setFormData, logInErrors, logIn, clearErrors } = customerSlice.actions 
 
 export default customerSlice.reducer;

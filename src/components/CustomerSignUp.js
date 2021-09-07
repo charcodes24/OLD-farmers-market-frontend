@@ -12,8 +12,6 @@ export default function CustomerSignUp() {
         password: "",
         password_confirmation: ""
     })
-
-  console.log("FORM INFO", form)
   
    console.log("CUSTOMER", customer);
 
@@ -36,7 +34,7 @@ export default function CustomerSignUp() {
     return (
       <div>
         <div>
-          <h1>Welcome! We're excited to have you join our community :).</h1>
+          <h1>Sign Up Page.</h1>
         </div>
         <div>
           <form onSubmit={handleSubmit}>

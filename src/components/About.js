@@ -2,10 +2,17 @@
 
 export default function About() {
     return (
-        <div>
-            <h3>About us..</h3>
-            <p>LahDeeDah's very own farmer's market, located at the end of a rainbow, is a place where people can come together to enjoy sustainably-harvested produce, grass-fed, organic meats, fresh-squeezed juices, delcious homemade treats and beautiful artisanwares of all kinds. Come support your local vendors and enjoy some good food and great live music while you're here!</p>
-            <p>Main Market - Every Saturday </p>
-        </div>
-    )
+      <div>
+        <h3>About us..</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    );
 }
