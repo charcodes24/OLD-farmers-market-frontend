@@ -12,13 +12,15 @@ export default function NavBar() {
   }
 
 
-  console.log("NAVBAR", isLoggedIn)
+  console.log("LOGGED IN NAVBAR", isLoggedIn)
     return (
       <div>
         <NavLink to="/">Home</NavLink>
-        {isLoggedIn ? null : <NavLink to="/signup">Sign-Up</NavLink>}
+        {isLoggedIn ? null : <NavLink to="/signup">Customer Sign-Up</NavLink>}
         {isLoggedIn ? null : <NavLink to="/login">Log-In</NavLink>}
+        <NavLink to="vendor_signup">Vendor Sign-Up</NavLink>
         <NavLink to="/cart">Cart</NavLink>
+        <NavLink to="vendorhomepage">Vendor Home Page</NavLink>
         {isLoggedIn ? <button onClick={handleLogOut}>Sign Out!</button> : null}
       </div>
     );

@@ -10,8 +10,10 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
 import CustomerSignUp from './components/CustomerSignUp';
+import VendorSignUp from './components/VendorSignUp';
 import CustomerLogin from './components/CustomerLogIn';
 import Cart from './components/Cart';
+import VendorHomePage from './components/VendorHomePage';
 
 function App() {
   const customer = useSelector(state => state.customer.customer)
@@ -37,12 +39,19 @@ function App() {
           <VendorPage />
         </Route>
         <Route path="/signup">
-          <CustomerSignUp />
+          {loggedIn ? <Redirect to="/" /> : <CustomerSignUp />}
         </Route>
         <Route path="/login">
-          {loggedIn ? <Redirect to="/" /> : <CustomerLogin />}</Route>
+          {loggedIn ? <Redirect to="/" /> : <CustomerLogin />}
+        </Route>
+        <Route path="/vendor_signup">
+          <VendorSignUp />
+        </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/vendorhomepage">
+          <VendorHomePage />
         </Route>
         <Route exact path="/">
           <HomePage />

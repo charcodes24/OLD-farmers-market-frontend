@@ -19,7 +19,7 @@ export const createCustomer = createAsyncThunk(
             })
         })
       const data = await response.json()
-      console.log("SIGNUP", data)
+      console.log("ERRORS IN SIGN UP", data)
       return data 
     }
 )
@@ -32,7 +32,7 @@ export const customerLogin = createAsyncThunk(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
       },
       body: JSON.stringify({
           username: form.username,
@@ -81,9 +81,6 @@ export const customerSlice = createSlice({
     errors: [],
   },
   reducers: {
-    stayLoggedIn(state, { payload }) {
-      state.customer = payload;
-    },
     logInErrors(state, { payload }) {
       if (payload === "errors") {
         state.errors = payload;
@@ -96,52 +93,43 @@ export const customerSlice = createSlice({
     },
     logIn(state, { payload }) {
       state.customer = payload;
+      state.loggedIn = true;
     },
     clearErrors(state) {
       console.log("CLEAR ERRORS REDUCER");
       state.errors = [];
+      state.hasError = false
     },
   },
   extraReducers: {
     [createCustomer.pending]: (state) => {
       state.isLoading = true;
-      state.hasError = false;
     },
-    [customerLogin.fulfilled]: (state, { payload }) => {
+    [createCustomer.fulfilled]: (state, { payload }) => {
       if (payload.errors) {
-        state.errors = payload;
+        state.errors = payload.errors;
         state.loggedIn = false;
+        state.hasError = true;
+        state.isLoading = false
       } else {
         state.customer = payload;
         console.log("PAYLOAD", payload);
         state.loggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
       }
     },
     [createCustomer.rejected]: (state) => {
       state.isLoading = false;
       state.hasError = true;
     },
-    // [stayLoggedIn.pending]: (state) => {
-    //   state.isLoading = true;
-    //   state.hasError = false;
-    // },
-    // [stayLoggedIn.fulfilled]: (state, { payload }) => {
-    //   state.customer = payload;
-    //   state.loggedIn = true;
-    //   state.isLoading = false;
-    //   state.hasError = false;
-    // },
-    // [stayLoggedIn.rejected]: (state) => {
-    //   state.isLoading = false;
-    //   state.hasError = true;
-    // },
     [customerLogin.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
     },
     [customerLogin.fulfilled]: (state, { payload }) => {
       if (payload.errors) {
-        state.errors = payload;
+        state.errors = payload.errors;
         state.loggedIn = false;
         state.hasError = true;
         state.isLoading = false;

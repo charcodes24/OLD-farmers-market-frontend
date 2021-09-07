@@ -23,7 +23,7 @@ export const getItems = createAsyncThunk(
 export const createVendor = createAsyncThunk(
   'vendors/createVendor',
   async (form) => {
-    const response = await fetch('/signup', {
+    const response = await fetch('/signupvendor', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,10 +42,8 @@ export const createVendor = createAsyncThunk(
     })
     const data = await response.json()
     console.log("VENDOR DATA", data)
-    if (data.errors) {
       console.log('errors!!!')
     }
-  }
 )
 
 

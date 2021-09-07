@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
 import { logIn, customerLogin, clearErrors } from "../features/signup/customerSlice"
@@ -19,6 +19,11 @@ export default function CustomerLogin() {
         username: "",
         password: ""
     })
+  
+  useEffect(() => {
+    dispatch(clearErrors())
+  }, []);
+  
 
     function handleInput(e) {
         setForm({
@@ -27,8 +32,8 @@ export default function CustomerLogin() {
         })
     }
 
-    console.log("ERRORS", errors)
-    console.log("CUSTOMER", customer)
+    // console.log("ERRORS", errors)
+    // console.log("CUSTOMER", customer)
 
     // function handleSubmit(e) {
     //     e.preventDefault();
@@ -73,12 +78,12 @@ export default function CustomerLogin() {
       e.preventDefault();
         dispatch(customerLogin(form));
         // handleLogin();
-      if (loggedIn) {
-          history.push('/')
-      }
-      else {
-          setToggleError(!toggleError)
-      }
+      // if (loggedIn) {
+      //     history.push('/')
+      // }
+      // else {
+      //     setToggleError(!toggleError)
+      // }
     }
 
  
@@ -108,7 +113,9 @@ export default function CustomerLogin() {
             </form>
             {hasError ? (
               <div>
-                <h1>Invalid username or password</h1>
+                {errors.map((error) => (
+                  <h3>{error}</h3>
+                ))}
               </div>
             ) : null}
           </div>
