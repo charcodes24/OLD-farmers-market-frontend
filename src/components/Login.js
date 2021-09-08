@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
-import { logIn, customerLogin, clearErrors } from "../features/signup/customerSlice"
+import { logIn, clearErrors } from "../features/customer/customerSlice"
+import { userLogin } from "../features/allUsers/AllUsersSlice"
 
 import Loading from "./Loading"
 
-export default function CustomerLogin() {
+export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const customer = useSelector(state => state.customer.customer)
@@ -76,7 +77,7 @@ export default function CustomerLogin() {
 
     function handleSubmit(e) {
       e.preventDefault();
-        dispatch(customerLogin(form));
+        dispatch(userLogin(form));
         // handleLogin();
       // if (loggedIn) {
       //     history.push('/')

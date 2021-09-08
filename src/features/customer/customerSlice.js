@@ -25,26 +25,27 @@ export const createCustomer = createAsyncThunk(
 )
 
 //customer login 
-export const customerLogin = createAsyncThunk(
-  'customer/customerLogin',
-  async (form) => {
-    const response = await fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({
-          username: form.username,
-          password: form.password,
-      }),
-    })
-    const data = await response.json()
-    console.log("ERRORS IN LOG IN", data)
-    // logInErrors(data)
-    return data
-  }
-)
+// export const userLogin = createAsyncThunk(
+//   'customer/customerLogin',
+//   async (form) => {
+//     const response = await fetch("/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Accept": "application/json",
+//       },
+//       body: JSON.stringify({
+//           username: form.username,
+//           password: form.password,
+//       }),
+//     })
+//     const data = await response.json()
+//     debugger
+//     console.log("ERRORS IN LOG IN", data)
+//     // logInErrors(data)
+//     return data
+//   }
+// )
 
 //customer logout 
 export const customerLogout = createAsyncThunk(
@@ -123,28 +124,28 @@ export const customerSlice = createSlice({
       state.isLoading = false;
       state.hasError = true;
     },
-    [customerLogin.pending]: (state) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [customerLogin.fulfilled]: (state, { payload }) => {
-      if (payload.errors) {
-        state.errors = payload.errors;
-        state.loggedIn = false;
-        state.hasError = true;
-        state.isLoading = false;
-      } else {
-        state.customer = payload;
-        console.log("PAYLOAD", payload);
-        state.loggedIn = true;
-        state.hasError = false;
-        state.isLoading = false;
-      }
-    },
-    [customerLogin.rejected]: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
+    // [userLogin.pending]: (state) => {
+    //   state.isLoading = true;
+    //   state.hasError = false;
+    // },
+    // [userLogin.fulfilled]: (state, { payload }) => {
+    //   if (payload.errors) {
+    //     state.errors = payload.errors;
+    //     state.loggedIn = false;
+    //     state.hasError = true;
+    //     state.isLoading = false;
+    //   } else {
+    //     state.customer = payload;
+    //     console.log("PAYLOAD", payload);
+    //     state.loggedIn = true;
+    //     state.hasError = false;
+    //     state.isLoading = false;
+    //   }
+    // },
+    // [userLogin.rejected]: (state) => {
+    //   state.isLoading = false;
+    //   state.hasError = true;
+    // },
     [customerLogout.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;

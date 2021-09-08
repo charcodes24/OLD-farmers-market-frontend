@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { customerLogin, logIn } from './features/signup/customerSlice';
+import { customerLogin, logIn } from './features/customer/customerSlice';
 import { vendorLogin } from './features/vendor/vendorSlice';
 
 import NavBar from './components/NavBar';
@@ -12,10 +12,9 @@ import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
 import CustomerSignUp from './components/CustomerSignUp';
 import VendorSignUp from './components/VendorSignUp';
-import CustomerLogin from './components/CustomerLogIn';
+import CustomerLogin from './components/Login';
 import Cart from './components/Cart';
 import VendorHomePage from './components/VendorHomePage';
-import VendorLogIn from './components/VendorLogIn';
 import AddItem from './components/AddItem';
 
 function App() {
@@ -26,12 +25,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("/me").then((res) => {
-      if (res.ok && customerLoggedIn) {
+    fetch("/customer").then((res) => {
+      if (res.ok) {
         res.json().then((customer) => dispatch(logIn(customer)))
-      } else {
-        res.json().then((customer) => dispatch(vendorLogin(vendor)));
-      }
+      } 
     })
   }, []);
 
@@ -56,13 +53,6 @@ function App() {
             <Redirect to="/vendor_homepage" />
           ) : (
             <VendorSignUp />
-          )}
-        </Route>
-        <Route path="/vendor_login">
-          {vendorLoggedIn ? (
-            <Redirect to="/vendor_homepage" />
-          ) : (
-            <VendorLogIn />
           )}
         </Route>
         <Route path="/cart">

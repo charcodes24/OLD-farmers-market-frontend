@@ -39,7 +39,7 @@ export default function AddItem() {
                     <input onChange={handleInput} type="text" name="name" value={form.name} placeholder="name" />
                     <input onChange={handleInput} type="text" name="image_url" value={form.image_url} placeholder="image" />
                     <input onChange={handleInput} type="integer" name="price" value={form.price} placeholder="price" />
-                    <button>Add</button>
+                    <button>Delete</button>
                 </form>
             </div>
         </div>

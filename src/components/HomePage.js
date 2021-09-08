@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVendors } from "../features/vendor/vendorSlice";
-import { clearErrors } from "../features/signup/customerSlice";
+import { clearErrors } from "../features/customer/customerSlice";
 
 import About from "./About";
 import VendorCard from './VendorCard'

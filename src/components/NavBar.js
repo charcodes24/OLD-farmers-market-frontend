@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { customerLogout } from "../features/signup/customerSlice";
+import { customerLogout } from "../features/customer/customerSlice";
 
 export default function NavBar() {
   const isLoggedIn = useSelector(state => state.customer.loggedIn)
