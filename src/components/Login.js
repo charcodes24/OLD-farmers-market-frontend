@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
 import { logIn, clearErrors } from "../features/customer/customerSlice"
-import { userLogin } from "../features/allUsers/AllUsersSlice"
+import { userLogin } from "../features/allUsers/allUsersSlice"
 
 import Loading from "./Loading"
 
