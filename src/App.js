@@ -11,7 +11,7 @@ import { logIn } from './features/allUsers/allUsersSlice';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
-import CustomerSignUp from './components/CustomerSignUp';
+import CustomerSignUp from './components/SignUp';
 import VendorSignUp from './components/VendorSignUp';
 import CustomerLogin from './components/Login';
 import Cart from './components/Cart';
