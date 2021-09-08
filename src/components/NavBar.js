@@ -20,7 +20,8 @@ export default function NavBar() {
         {isLoggedIn ? null : <NavLink to="/login">Log-In</NavLink>}
         <NavLink to="vendor_signup">Vendor Sign-Up</NavLink>
         <NavLink to="/cart">Cart</NavLink>
-        <NavLink to="vendorhomepage">Vendor Home Page</NavLink>
+        <NavLink to="/vendor_homepage">Vendor Home Page</NavLink>
+        <NavLink to="/vendor_login">Vendor Log-In</NavLink>
         {isLoggedIn ? <button onClick={handleLogOut}>Sign Out!</button> : null}
       </div>
     );

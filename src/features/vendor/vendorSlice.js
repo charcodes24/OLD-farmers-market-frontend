@@ -41,9 +41,30 @@ export const createVendor = createAsyncThunk(
       })
     })
     const data = await response.json()
-    console.log("VENDOR DATA", data)
-      console.log('errors!!!')
+    return data
     }
+)
+
+//vendor login 
+export const vendorLogin = createAsyncThunk(
+  'vendors/vendorLogin',
+  async (form) => {
+    const response = await fetch("/login_vendor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+          username: form.username,
+          password: form.password,
+      }),
+    })
+    const data = await response.json()
+    console.log("VENDOR LOG IN DATA", data)
+    // logInErrors(data)
+    return data
+  }
 )
 
 
@@ -51,15 +72,69 @@ export const createVendor = createAsyncThunk(
 export const vendorSlice = createSlice({
   name: "vendor",
   initialState: {
+    vendor: {},
+    loggedIn: false,
     vendorList: [],
     items: [],
     itemVendor: {},
     isLoading: false,
-    hasError: false
+    hasError: false,
+    errors: [],
   },
   reducers: {
+    vendorLogIn(state, { payload }) {
+      state.vendor = payload;
+      state.loggedIn = true;
+    },
+    clearErrors(state) {
+      state.errors = [];
+      state.hasError = false;
+    }
   },
   extraReducers: {
+    [createVendor.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [createVendor.fulfilled]: (state, { payload }) => {
+      if (payload.errors) {
+        state.errors = payload.errors;
+        state.loggedIn = false;
+        state.hasError = true;
+        state.isLoading = false;
+      } else {
+        state.vendor = payload;
+        state.loggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
+      }
+    },
+    [createVendor.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
+    [vendorLogin.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [vendorLogin.fulfilled]: (state, { payload }) => {
+      if (payload.errors) {
+        state.errors = payload.errors;
+        state.loggedIn = false;
+        state.hasError = true;
+        state.isLoading = false;
+      } else {
+        state.vendor = payload;
+        console.log("PAYLOAD", payload);
+        state.loggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
+      }
+    },
+    [vendorLogin.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
     [getVendors.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
@@ -94,6 +169,6 @@ export const vendorSlice = createSlice({
 
 
 //action creators are generated for each case reducer function
-export const { clearItems } = vendorSlice.actions;
+export const { clearErrors, vendorLogIn } = vendorSlice.actions;
 
 export default vendorSlice.reducer;

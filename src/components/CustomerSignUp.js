@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
+
 import { createCustomer, clearErrors } from "../features/signup/customerSlice";
 
 import Loading from "./Loading";
