@@ -92,49 +92,49 @@ export const vendorSlice = createSlice({
     }
   },
   extraReducers: {
-    [createVendor.pending]: (state) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [createVendor.fulfilled]: (state, { payload }) => {
-      if (payload.errors) {
-        state.errors = payload.errors;
-        state.loggedIn = false;
-        state.hasError = true;
-        state.isLoading = false;
-      } else {
-        state.vendor = payload;
-        state.loggedIn = true;
-        state.hasError = false;
-        state.isLoading = false;
-      }
-    },
-    [createVendor.rejected]: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
-    [vendorLogin.pending]: (state) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [vendorLogin.fulfilled]: (state, { payload }) => {
-      if (payload.errors) {
-        state.errors = payload.errors;
-        state.loggedIn = false;
-        state.hasError = true;
-        state.isLoading = false;
-      } else {
-        state.vendor = payload;
-        console.log("PAYLOAD", payload);
-        state.loggedIn = true;
-        state.hasError = false;
-        state.isLoading = false;
-      }
-    },
-    [vendorLogin.rejected]: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
+    // [createVendor.pending]: (state) => {
+    //   state.isLoading = true;
+    //   state.hasError = false;
+    // },
+    // [createVendor.fulfilled]: (state, { payload }) => {
+    //   if (payload.errors) {
+    //     state.errors = payload.errors;
+    //     state.loggedIn = false;
+    //     state.hasError = true;
+    //     state.isLoading = false;
+    //   } else {
+    //     state.vendor = payload;
+    //     state.loggedIn = true;
+    //     state.hasError = false;
+    //     state.isLoading = false;
+    //   }
+    // },
+    // [createVendor.rejected]: (state) => {
+    //   state.isLoading = false;
+    //   state.hasError = true;
+    // },
+    // [vendorLogin.pending]: (state) => {
+    //   state.isLoading = true;
+    //   state.hasError = false;
+    // },
+    // [vendorLogin.fulfilled]: (state, { payload }) => {
+    //   if (payload.errors) {
+    //     state.errors = payload.errors;
+    //     state.loggedIn = false;
+    //     state.hasError = true;
+    //     state.isLoading = false;
+    //   } else {
+    //     state.vendor = payload;
+    //     console.log("PAYLOAD", payload);
+    //     state.loggedIn = true;
+    //     state.hasError = false;
+    //     state.isLoading = false;
+    //   }
+    // },
+    // [vendorLogin.rejected]: (state) => {
+    //   state.isLoading = false;
+    //   state.hasError = true;
+    // },
     [getVendors.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
@@ -156,7 +156,6 @@ export const vendorSlice = createSlice({
     },
     [getItems.fulfilled]: (state, { payload }) => {
       state.items = payload;
-      state.itemVendor = payload[0].vendor;
       state.isLoading = false;
       state.hasError = false;
     },

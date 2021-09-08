@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react"
+import { useHistory } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 
-import { createVendor } from "../features/vendor/vendorSlice"
+import { createVendor } from "../features/allUsers/allUsersSlice"
 
 import Loading from "./Loading"
 
 export default function VendorSignUp() {
-    const errors = useSelector(state => state.vendor.errors)
-    const hasError = useSelector(state => state.vendor.hasError)
-    const isLoading = useSelector(state => state.customer.isLoading)
-    const dispatch = useDispatch();
+  const errors = useSelector((state) => state.allusers.errors);
+  const hasError = useSelector((state) => state.allusers.hasError);
+  const isLoading = useSelector(state => state.customer.isLoading)
+  const dispatch = useDispatch()
+  const history = useHistory()
     const [form, setForm] = useState({
         name: "",
         description: "",
@@ -30,7 +32,8 @@ export default function VendorSignUp() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(createVendor(form))
+      dispatch(createVendor(form))
+      history.push('/vendor_homepage')
     }
 
     {

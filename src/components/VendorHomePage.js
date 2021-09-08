@@ -10,17 +10,30 @@ import Item from "./Item"
 
 export default function VendorHomePage() {
   const dispatch = useDispatch()
-  const vendor = useSelector(state => state.vendor.vendor)
+  const vendor = useSelector(state => state.allusers.vendor)
   const { id, name, description, items } = vendor
   const isLoading = useSelector((state) => state.vendor.isLoading);
+
+  console.log(vendor)
 
   useEffect(() => {
     dispatch(getItems(`${id}`));
   }, [id]);
 
-  const displayItems = items.map((item) => {
-    return <Item key={item.id} item={item} />;
-  });
+  // const displayItems = items.map((item) => {
+  //   return <Item key={item.id} item={item} />;
+  // });
+
+  function displayItems(items) {
+    if (items.length > 0) {
+      const displayItems = items.map((item) => {
+          return <Item key={item.id} item={item} />
+      })
+      return displayItems
+    } else {
+      return null
+    }
+  }
 
   {
     return isLoading ? (
@@ -28,10 +41,10 @@ export default function VendorHomePage() {
     ) : (
       <div>
         <div>
-          <h1>Welcome {vendor.name}!</h1>
+          <h1>Welcome {name}!</h1>
           <AddItem />
         </div>
-        {displayItems}
+        {displayItems(items)}
       </div>
     );
   }

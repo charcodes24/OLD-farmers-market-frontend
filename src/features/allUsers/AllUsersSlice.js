@@ -1,5 +1,54 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
+//create customer
+export const createCustomer = createAsyncThunk(
+    'customer/createCustomer',
+    async (form) => {
+        const response = await fetch('/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+          body: JSON.stringify({
+            customer: {
+              username: form.username,
+              password: form.password,
+              password_confirmation: form.password_confirmation
+            }
+            })
+        })
+      const data = await response.json()
+      console.log("ERRORS IN SIGN UP", data)
+      return data 
+    }
+)
+
+export const createVendor = createAsyncThunk(
+  "vendors/createVendor",
+  async (form) => {
+    const response = await fetch("/signupvendor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        vendor: {
+          name: form.name,
+          description: form.description,
+          category: form.category,
+          username: form.username,
+          password: form.password,
+          password_confirmation: form.password_confirmation,
+        },
+      }),
+    });
+    const data = await response.json();
+    return data;
+  }
+);
+
 export const userLogin = createAsyncThunk(
   "allUsers/userLogin",
   async (form) => {
@@ -51,8 +100,56 @@ export const allUsersSlice = createSlice({
         state.customerLoggedIn = true;
       }
     },
+    clearErrors(state) {
+      state.errors = []
+      state.hasError = false
+    }
   },
   extraReducers: {
+    [createCustomer.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [createCustomer.fulfilled]: (state, { payload }) => {
+      if (payload.errors) {
+        state.errors = payload.errors;
+        state.customerLoggedIn = false;
+        state.vendorLoggedIn = false;
+        state.hasError = true;
+        state.isLoading = false;
+      } else {
+        state.customer = payload;
+        state.customerLoggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
+      }
+    },
+    [createCustomer.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
+    [createVendor.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [createVendor.fulfilled]: (state, { payload }) => {
+      if (payload.errors) {
+        state.errors = payload.errors;
+        state.vendorLoggedIn = false;
+        state.customerLoggedIn = false;
+        state.hasError = true;
+        state.isLoading = false;
+      } else {
+        state.vendor = payload;
+        state.vendorLoggedIn = true;
+        state.hasError = false;
+        state.isLoading = false;
+      }
+    },
+    [createVendor.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
     [userLogin.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
@@ -90,12 +187,12 @@ export const allUsersSlice = createSlice({
       state.hasError = false;
     },
     [userLogout.fulfilled]: (state) => {
-        state.customer = {};
-        state.vendor = {};
-        state.customerLoggedIn = false;
-        state.vendorLoggedIn = false;
-        state.isLoading = false;
-        state.hasError = false;
+      state.customer = {};
+      state.vendor = {};
+      state.customerLoggedIn = false;
+      state.vendorLoggedIn = false;
+      state.isLoading = false;
+      state.hasError = false;
     },
     [userLogout.rejected]: (state) => {
       state.isLoading = false;

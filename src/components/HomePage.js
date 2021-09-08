@@ -10,7 +10,7 @@ import Loading from "./Loading";
 export default function HomePage() {
   const vendors = useSelector(state => state.vendor.vendorList)
   const isLoading = useSelector(state => state.vendor.isLoading)
-  const customer = useSelector(state => state.customer.customer.username)
+  const customer = useSelector(state => state.allusers.customer.username)
   const dispatch = useDispatch();
 
   // {customer ? customer.charAt(0).toUpperCase() + customer.substring(1) : null}

@@ -10,9 +10,9 @@ export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const customer = useSelector(state => state.customer.customer)
-    const errors = useSelector(state => state.customer.errors)
+    const errors = useSelector(state => state.allusers.errors)
     const isLoading = useSelector(state => state.customer.isLoading)
-    const hasError = useSelector(state => state.customer.hasError)
+    const hasError = useSelector(state => state.allusers.hasError)
     const loggedIn = useSelector(state => state.customer.loggedIn)
     const [toggleError, setToggleError] = useState(false)
     // const [errors, setErrors] = useState([])
@@ -20,6 +20,8 @@ export default function Login() {
         username: "",
         password: ""
     })
+  
+  console.log(errors)
   
   useEffect(() => {
     dispatch(clearErrors())

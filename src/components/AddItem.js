@@ -5,7 +5,7 @@ import { addItem } from "../features/items/itemSlice"
 
 export default function AddItem() {
     const dispatch = useDispatch()
-    const vendorID = useSelector(state => state.vendor.vendor.id)
+    const vendorID = useSelector(state => state.allusers.vendor.id)
     const [form, setForm] = useState({
         name: "",
         image_url: "",

@@ -1,28 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-//create customer
-export const createCustomer = createAsyncThunk(
-    'customer/createCustomer',
-    async (form) => {
-        const response = await fetch('/signup', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-          body: JSON.stringify({
-            customer: {
-              username: form.username,
-              password: form.password,
-              password_confirmation: form.password_confirmation
-            }
-            })
-        })
-      const data = await response.json()
-      console.log("ERRORS IN SIGN UP", data)
-      return data 
-    }
-)
+// //create customer
+// export const createCustomer = createAsyncThunk(
+//     'customer/createCustomer',
+//     async (form) => {
+//         const response = await fetch('/signup', {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Accept": "application/json"
+//             },
+//           body: JSON.stringify({
+//             customer: {
+//               username: form.username,
+//               password: form.password,
+//               password_confirmation: form.password_confirmation
+//             }
+//             })
+//         })
+//       const data = await response.json()
+//       console.log("ERRORS IN SIGN UP", data)
+//       return data 
+//     }
+// )
 
 //customer login 
 // export const userLogin = createAsyncThunk(
@@ -103,27 +103,27 @@ export const customerSlice = createSlice({
     },
   },
   extraReducers: {
-    [createCustomer.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [createCustomer.fulfilled]: (state, { payload }) => {
-      if (payload.errors) {
-        state.errors = payload.errors;
-        state.loggedIn = false;
-        state.hasError = true;
-        state.isLoading = false
-      } else {
-        state.customer = payload;
-        console.log("PAYLOAD", payload);
-        state.loggedIn = true;
-        state.hasError = false;
-        state.isLoading = false;
-      }
-    },
-    [createCustomer.rejected]: (state) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
+    // [createCustomer.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [createCustomer.fulfilled]: (state, { payload }) => {
+    //   if (payload.errors) {
+    //     state.errors = payload.errors;
+    //     state.loggedIn = false;
+    //     state.hasError = true;
+    //     state.isLoading = false
+    //   } else {
+    //     state.customer = payload;
+    //     console.log("PAYLOAD", payload);
+    //     state.loggedIn = true;
+    //     state.hasError = false;
+    //     state.isLoading = false;
+    //   }
+    // },
+    // [createCustomer.rejected]: (state) => {
+    //   state.isLoading = false;
+    //   state.hasError = true;
+    // },
     // [userLogin.pending]: (state) => {
     //   state.isLoading = true;
     //   state.hasError = false;

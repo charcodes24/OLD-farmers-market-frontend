@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Item({ item }) {
-  const vendor = useSelector(state => state.vendor.vendor)
+  const vendor = useSelector(state => state.allusers.vendor)
     const { name, image_url, price } = item 
     return (
       <div>

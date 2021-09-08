@@ -11,18 +11,16 @@ import { logIn } from './features/allUsers/allUsersSlice';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import VendorPage from './components/VendorPage';
-import CustomerSignUp from './components/SignUp';
+import SignUp from './components/SignUp';
 import VendorSignUp from './components/VendorSignUp';
-import CustomerLogin from './components/Login';
+import Login from './components/Login';
 import Cart from './components/Cart';
 import VendorHomePage from './components/VendorHomePage';
 import AddItem from './components/AddItem';
 
 function App() {
-  const customer = useSelector(state => state.customer.customer)
-  const vendor = useSelector(state => state.vendor.vendor)
-  const customerLoggedIn = useSelector(state => state.customer.loggedIn)
-  const vendorLoggedIn = useSelector(state => state.vendor.loggedIn)
+  const customerLoggedIn = useSelector((state) => state.allusers.customerLoggedIn);
+  const vendorLoggedIn = useSelector((state) => state.allusers.vendorLoggedIn);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,8 +30,6 @@ function App() {
       } 
     })
   }, []);
-
-  console.log('CUSTOMER', customer)
   
   
   return (
@@ -44,10 +40,10 @@ function App() {
           <VendorPage />
         </Route>
         <Route path="/signup">
-          {customerLoggedIn ? <Redirect to="/" /> : <CustomerSignUp />}
+          {customerLoggedIn || vendorLoggedIn ? <Redirect to="/" /> : <SignUp />}
         </Route>
         <Route path="/login">
-          {customerLoggedIn ? <Redirect to="/" /> : <CustomerLogin />}
+          {customerLoggedIn ? <Redirect to="/" /> : <Login />}
         </Route>
         <Route path="/vendor_signup">
           {vendorLoggedIn ? (
@@ -58,6 +54,9 @@ function App() {
         </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/vendor_signup">
+          <VendorSignUp />
         </Route>
         <Route path="/vendor_homepage">
           <VendorHomePage />

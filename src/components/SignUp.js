@@ -1,32 +1,23 @@
 import { useState, useEffect } from "react"
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createCustomer, clearErrors } from "../features/customer/customerSlice";
+import { createCustomer } from "../features/allUsers/allUsersSlice";
 
 import Loading from "./Loading";
 
 export default function CustomerSignUp() {
-  const dispatch = useDispatch();
-  const errors = useSelector(state => state.customer.errors)
-  const hasError = useSelector(state => state.customer.hasError)
-  const customer = useSelector(state => state.customer.customer)
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const errors = useSelector(state => state.allusers.errors)
+  const hasError = useSelector(state => state.allusers.hasError)
   const isLoading = useSelector(state => state.customer.isLoading)
-  const [isVendor, setIsVendor] = useState(false)
     const [form, setForm] = useState({
         username: "",
         password: "",
         password_confirmation: "",
-        name: "",
-        description: ""
     })
-  
-  console.log("CUSTOMER", customer);
-  console.log("ERRORS", errors)
-  console.log("HAS ERRORS?", hasError)
 
-  useEffect(() => {
-    dispatch(clearErrors());
-  }, []);
 
     function handleInput(e) {
         setForm({
@@ -34,15 +25,6 @@ export default function CustomerSignUp() {
             [e.target.name]: e.target.value
         })
     }
-  
-  function toggleIsVendor(e) {
-    e.preventDefault();
-    setIsVendor(!isVendor)
-  }
-
-  console.log("IS VENDOR", isVendor)
-  console.log("SIGNUP FORM", form)
-  
   
 
   function handleSubmit(e) {
@@ -81,7 +63,8 @@ export default function CustomerSignUp() {
             value={form.password_confirmation}
             placeholder="re-type password"
           />
-          <button>Sign Up!</button>
+            <button>Sign Up!</button>
+            <Link to="/vendor_signup"><button>Are you a vendor?</button></Link>
         </form>
       </div>
       {hasError ? (
