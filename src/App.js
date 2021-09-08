@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { customerLogin, logIn } from './features/customer/customerSlice';
+import { customerLogin } from './features/customer/customerSlice';
 import { vendorLogin } from './features/vendor/vendorSlice';
+import { logIn } from './features/allUsers/allUsersSlice';
 
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
@@ -25,9 +26,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("/customer").then((res) => {
+    fetch("/loggedin").then((res) => {
       if (res.ok) {
-        res.json().then((customer) => dispatch(logIn(customer)))
+        res.json().then((user) => dispatch(logIn(user)))
       } 
     })
   }, []);

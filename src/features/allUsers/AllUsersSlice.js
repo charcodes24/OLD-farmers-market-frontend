@@ -31,7 +31,17 @@ export const allUsersSlice = createSlice({
     hasError: false,
     errors: [],
   },
-  reducers: {},
+    reducers: {
+        logIn(state, { payload }) {
+            if (payload.is_vendor === true) {
+                state.vendor = payload
+                state.vendorLoggedIn = true
+            } else {
+                state.customer = payload
+                state.customerLoggedIn = true
+            }
+      }
+  },
   extraReducers: {
     [userLogin.pending]: (state) => {
       state.isLoading = true;
@@ -69,6 +79,6 @@ export const allUsersSlice = createSlice({
   },
 });
 
-export const { } = allUsersSlice.actions
+export const { logIn } = allUsersSlice.actions
 
 export default allUsersSlice.reducer
