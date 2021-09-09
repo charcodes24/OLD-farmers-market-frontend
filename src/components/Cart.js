@@ -1,16 +1,20 @@
-
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Cart() {
-    const cartIems = useSelector(state => state.cart.cartItems)
+    const cartItems = useSelector(state => state.cart.cartItems.cartItems.cartItems)
     const dispatch = useDispatch()
+
+
+    console.log(cartItems)
+
 
 
 
     return (
         <div>
             <h1>Cart</h1>
-            {cartIems.map((item) => {
+            {cartItems.map((item) => {
                 return (
                     <div>
                         <p>{item.name}</p>

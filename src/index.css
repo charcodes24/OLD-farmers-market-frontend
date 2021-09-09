@@ -1,6 +1,8 @@
 * {
   font-family: 'Nixie One', cursive;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -10,6 +12,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 50px;
+  padding-top: 50px;
+  ;
 }
 
 code {
@@ -30,6 +35,11 @@ code {
   left: 0;
   right: 0;
   transition: all .3s ease-in-out;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .nav .container {

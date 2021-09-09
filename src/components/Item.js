@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../features/cart/CartSlice";
 
@@ -8,6 +9,10 @@ export default function Item({ item }) {
   const vendor = useSelector(state => state.item.items[0].vendor.name)
   const { name, image_url, price } = item
   const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart))
+  }, [cart]);
 
 
   console.log("CFLS", cartFromLocalStorage)
