@@ -18,8 +18,6 @@ import Cart from './components/Cart';
 import VendorHomePage from './components/VendorHomePage';
 import AddItem from './components/AddItem';
 
-const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
-
 function App() {
   const customerLoggedIn = useSelector((state) => state.allusers.customerLoggedIn);
   const vendorLoggedIn = useSelector((state) => state.allusers.vendorLoggedIn);

@@ -10,22 +10,16 @@ import Loading from "./Loading"
 export default function VendorPage() {
   const { id } = useParams()
   const isLoading = useSelector((state) => state.vendor.isLoading)
-  const items = useSelector((state) => state.vendor.items)
-  const vendor = useSelector((state) => state.vendor.vendor)
+  const items = useSelector((state) => state.item.items)
+  const vendor = useSelector((state) => state.item.vendor)
   const dispatch = useDispatch()
-  const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
 
-  console.log("CFLS", cartFromLocalStorage)
-  console.log("VP", items)
-  console.log("VP", vendor)
+  console.log("VP items", items)
+  console.log("VP vendor", vendor)
 
     useEffect(() => {
         dispatch(getItems(`${id}`))
     }, [id])
-  
-  useEffect(() => {
-    
-  }, []);
 
     const displayItems = items.map((item) => {
         return (

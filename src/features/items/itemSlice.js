@@ -66,6 +66,7 @@ const itemSlice = createSlice({
     },
     [getItems.fulfilled]: (state, { payload }) => {
       state.items = payload;
+      state.vendor = payload[0].vendor
       state.isLoading = false;
       state.hasError = false;
     },

@@ -8,18 +8,18 @@ export default function Item({ item }) {
   const cartItem = useSelector(state => state.cart.item)
   const vendor = useSelector(state => state.item.items[0].vendor.name)
   const { name, image_url, price } = item
-  const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
+  // const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart))
-  }, [cart]);
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart))
+  // }, [cart]);
 
 
-  console.log("CFLS", cartFromLocalStorage)
-  console.log("ITEM COMP, vendor", vendor)
-  console.log("ITEM COMP, cart", cart.cart)
-  console.log("ITEM TO PASS TO ADD TO CART", item)
-  console.log("CARTITEM", cartItem  )
+  // console.log("CFLS", cartFromLocalStorage)
+  // console.log("ITEM COMP, vendor", vendor)
+  // console.log("ITEM COMP, cart", cart.cart)
+  // console.log("ITEM TO PASS TO ADD TO CART", item)
+  // console.log("CARTITEM", cartItem  )
 
   function addItemToCart(e) {
     e.preventDefault();
