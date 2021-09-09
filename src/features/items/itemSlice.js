@@ -20,7 +20,7 @@ export const addItem = createAsyncThunk(
             })
         })
         const data = await response.json()
-        console.log(data)
+        console.log("ADDING ITEM", data)
         return data
     }
 )
@@ -52,9 +52,14 @@ const itemSlice = createSlice({
       state.hasError = false;
     },
     [addItem.fulfilled]: (state, { payload }) => {
-      state.items = state.items.push(payload);
-      state.isLoading = false;
-      state.hasError = false;
+      if (payload.errors) {
+        state.errors = payload.errors;
+        state.hasError = true;
+      } else {
+        state.items = state.items + payload
+        state.isLoading = false;
+        state.hasError = false
+      }
     },
     [addItem.rejected]: (state) => {
       state.isLoading = false;

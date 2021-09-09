@@ -151,7 +151,7 @@ export const customerSlice = createSlice({
       state.hasError = false;
     },
     [customerLogout.fulfilled]: (state) => {
-      console.log("FULFILLED");
+      console.log("CUSTOMER LOGGED OUT");
       state.customer = {
         username: "",
       };

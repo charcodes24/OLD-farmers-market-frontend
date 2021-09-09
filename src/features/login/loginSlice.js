@@ -31,21 +31,21 @@ export const createVendor = createAsyncThunk(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
       },
       body: JSON.stringify({
         vendor: {
           name: form.name,
           description: form.description,
-          category: form.category,
           username: form.username,
           password: form.password,
           password_confirmation: form.password_confirmation,
           is_vendor: form.is_vendor
-        },
-      }),
+        }
+      })
     });
     const data = await response.json();
+    console.log("CREATE VENDOR", data)
     return data;
   }
 );

@@ -30,11 +30,13 @@ export default function VendorSignUp() {
             [e.target.name]: e.target.value
         })
     }
+  
+  console.log(form)
 
     function handleSubmit(e) {
         e.preventDefault()
       dispatch(createVendor(form))
-      history.push('/vendor_homepage')
+      // history.push('/vendor_homepage')
     }
 
     {

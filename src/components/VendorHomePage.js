@@ -10,6 +10,7 @@ import Item from "./Item"
 
 export default function VendorHomePage() {
   const dispatch = useDispatch()
+  // const items = useSelector(state => state.item.items)
   const vendor = useSelector(state => state.allusers.vendor)
   const { id, name, description, items } = vendor
   const isLoading = useSelector((state) => state.vendor.isLoading);
