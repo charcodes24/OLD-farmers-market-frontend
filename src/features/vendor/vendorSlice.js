@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-//thunk dispatches at most two actions: pending, fulfilled, rejected
 export const getVendors = createAsyncThunk(
     'vendors/getVendors',
     async () => {
@@ -10,64 +9,35 @@ export const getVendors = createAsyncThunk(
     }
 )
 
-export const getItems = createAsyncThunk(
-    'vendors/getItems',
-    async (id) => {
-        const response = await fetch(`/vendors/${id}/items`)
-        const data = await response.json()
-        console.log('DEBUGGER===', data)
-        return data
-    }
-)
+export const getItems = createAsyncThunk("vendors/getItems", async (id) => {
+  const response = await fetch(`/vendors/${id}/items`)
+  const data = await response.json()
+  console.log("DEBUGGER===", data)
+  return data
+})
 
-export const createVendor = createAsyncThunk(
-  'vendors/createVendor',
+export const addItem = createAsyncThunk(
+  "item/addItem",
   async (form) => {
-    const response = await fetch('/signupvendor', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+  const response = await fetch("/add_item", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      item: {
+        name: form.name,
+        image_url: form.image_url,
+        price: form.price,
+        vendor_id: form.vendor_id,
       },
-      body: JSON.stringify({
-        vendor: {
-          name: form.name,
-          description: form.description,
-          category: form.category,
-          username: form.username,
-          password: form.password,
-          password_confirmation: form.password_confirmation
-        }
-      })
-    })
-    const data = await response.json()
-    return data
-    }
-)
-
-//vendor login 
-export const vendorLogin = createAsyncThunk(
-  'vendors/vendorLogin',
-  async (form) => {
-    const response = await fetch("/login_vendor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({
-          username: form.username,
-          password: form.password,
-      }),
-    })
-    const data = await response.json()
-    console.log("VENDOR LOG IN DATA", data)
-    // logInErrors(data)
-    return data
-  }
-)
-
-
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+  return data;
+});
 
 export const vendorSlice = createSlice({
   name: "vendor",
@@ -89,52 +59,9 @@ export const vendorSlice = createSlice({
     clearErrors(state) {
       state.errors = [];
       state.hasError = false;
-    }
+    },
   },
   extraReducers: {
-    // [createVendor.pending]: (state) => {
-    //   state.isLoading = true;
-    //   state.hasError = false;
-    // },
-    // [createVendor.fulfilled]: (state, { payload }) => {
-    //   if (payload.errors) {
-    //     state.errors = payload.errors;
-    //     state.loggedIn = false;
-    //     state.hasError = true;
-    //     state.isLoading = false;
-    //   } else {
-    //     state.vendor = payload;
-    //     state.loggedIn = true;
-    //     state.hasError = false;
-    //     state.isLoading = false;
-    //   }
-    // },
-    // [createVendor.rejected]: (state) => {
-    //   state.isLoading = false;
-    //   state.hasError = true;
-    // },
-    // [vendorLogin.pending]: (state) => {
-    //   state.isLoading = true;
-    //   state.hasError = false;
-    // },
-    // [vendorLogin.fulfilled]: (state, { payload }) => {
-    //   if (payload.errors) {
-    //     state.errors = payload.errors;
-    //     state.loggedIn = false;
-    //     state.hasError = true;
-    //     state.isLoading = false;
-    //   } else {
-    //     state.vendor = payload;
-    //     console.log("PAYLOAD", payload);
-    //     state.loggedIn = true;
-    //     state.hasError = false;
-    //     state.isLoading = false;
-    //   }
-    // },
-    // [vendorLogin.rejected]: (state) => {
-    //   state.isLoading = false;
-    //   state.hasError = true;
-    // },
     [getVendors.pending]: (state) => {
       state.isLoading = true;
       state.hasError = false;
@@ -160,6 +87,19 @@ export const vendorSlice = createSlice({
       state.hasError = false;
     },
     [getItems.rejected]: (state) => {
+      state.isLoading = false;
+      state.hasError = true;
+    },
+    [addItem.pending]: (state) => {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    [addItem.fulfilled]: (state, { payload }) => {
+      state.items = state.items.push(payload);
+      state.isLoading = false;
+      state.hasError = false;
+    },
+    [addItem.rejected]: (state) => {
       state.isLoading = false;
       state.hasError = true;
     },

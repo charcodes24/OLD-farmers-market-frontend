@@ -14,7 +14,7 @@ export default function VendorHomePage() {
   const { id, name, description, items } = vendor
   const isLoading = useSelector((state) => state.vendor.isLoading);
 
-  console.log(vendor)
+  console.log("VENDOR", vendor)
 
   useEffect(() => {
     dispatch(getItems(`${id}`));
@@ -24,16 +24,16 @@ export default function VendorHomePage() {
   //   return <Item key={item.id} item={item} />;
   // });
 
-  function displayItems(items) {
-    if (items.length > 0) {
-      const displayItems = items.map((item) => {
-          return <Item key={item.id} item={item} />
-      })
-      return displayItems
-    } else {
-      return null
-    }
-  }
+  // function displayItems(items) {
+  //   if (items.length > 0) {
+  //     const displayItems = items.map((item) => {
+  //         return <Item key={item.id} item={item} />
+  //     })
+  //     return displayItems
+  //   } else {
+  //     return null
+  //   }
+  // }
 
   {
     return isLoading ? (
@@ -44,7 +44,7 @@ export default function VendorHomePage() {
           <h1>Welcome {name}!</h1>
           <AddItem />
         </div>
-        {displayItems(items)}
+        {/* {displayItems(items)} */}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { customerLogin } from './features/customer/customerSlice';
 import { vendorLogin } from './features/vendor/vendorSlice';
-import { logIn } from './features/allUsers/allUsersSlice';
+import { logIn } from './features/login/loginSlice';
 
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';

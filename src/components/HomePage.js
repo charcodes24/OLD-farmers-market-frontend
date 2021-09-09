@@ -7,6 +7,8 @@ import About from "./About";
 import VendorCard from './VendorCard'
 import Loading from "./Loading";
 
+import './HomePage.css'
+
 export default function HomePage() {
   const vendors = useSelector(state => state.vendor.vendorList)
   const isLoading = useSelector(state => state.vendor.isLoading)
@@ -33,15 +35,19 @@ export default function HomePage() {
     return isLoading ? (
       <Loading />
     ) : (
-      <div>
-        <h1>
-          Welcome to the Farmer's Market{" "}
-          {customer
-            ? customer.charAt(0).toUpperCase() + customer.substring(1)
-            : null}
-        </h1>
-        <About />
-        <div>{displayVendors}</div>
+      <div className="container">
+        <div className="hero">
+          <h1>
+            Welcome to the Farmer's Market{" "}
+            {customer
+              ? customer.charAt(0).toUpperCase() + customer.substring(1)
+              : null}
+          </h1>
+          <About />
+        </div>
+        <div>
+          <div>{displayVendors}</div>
+        </div>
       </div>
     );
   }

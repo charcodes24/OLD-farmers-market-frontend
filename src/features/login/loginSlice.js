@@ -75,7 +75,7 @@ export const userLogout = createAsyncThunk(
         const response = await fetch(`/logout`, {
             method: "DELETE"
         })
-        console.log("LOGOUT SLICE", response)
+      console.log(response)
     }
 )
 
@@ -100,6 +100,7 @@ export const allUsersSlice = createSlice({
         state.customerLoggedIn = true;
       }
     },
+
     clearErrors(state) {
       state.errors = []
       state.hasError = false
