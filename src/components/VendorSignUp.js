@@ -17,7 +17,8 @@ export default function VendorSignUp() {
         description: "",
         username: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
+        is_vendor: true
     })
 
     console.log("VENDOR SIGN UP", errors)
