@@ -12,6 +12,7 @@ export default function VendorPage() {
   const isLoading = useSelector((state) => state.vendor.isLoading)
   const items = useSelector((state) => state.item.items)
   const vendor = useSelector((state) => state.item.vendor)
+  const { name, description } = vendor
   const dispatch = useDispatch()
 
   console.log("VP items", items)
@@ -35,7 +36,8 @@ export default function VendorPage() {
           <Loading />
         ) : (
           <div>
-            <h1>{vendor.name}</h1>
+              <h1>{name}</h1>
+              <p>{description}</p>
             {(items.length > 0) ? displayItems : <h3>This vendor has no items yet.</h3>}
           </div>
         );

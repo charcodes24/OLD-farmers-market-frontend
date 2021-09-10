@@ -35,7 +35,7 @@ export const addItem = createAsyncThunk(
     }),
   });
   const data = await response.json();
-  console.log(data);
+  console.log("ADD ITEM data", data);
   return data;
 });
 

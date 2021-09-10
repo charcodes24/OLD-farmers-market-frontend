@@ -70,10 +70,16 @@ const itemSlice = createSlice({
       state.hasError = false;
     },
     [getItems.fulfilled]: (state, { payload }) => {
-      state.items = payload;
-      // state.vendor = payload[0].vendor
-      state.isLoading = false;
-      state.hasError = false;
+      if (payload[0]) {
+        state.items = payload;
+        state.vendor = payload[0].vendor;
+        state.isLoading = false;
+        state.hasError = false;
+      } else {
+        state.items = payload;
+        state.isLoading = false;
+        state.hasError = false;
+      }
     },
     [getItems.rejected]: (state) => {
       state.isLoading = false;

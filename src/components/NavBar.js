@@ -17,17 +17,15 @@ export default function NavBar() {
     return (
       <div className="nav active">
         <div className="container">
-          <NavLink className="navlink" to="/">Home</NavLink>
+          {vendorLoggedIn ? null : <NavLink className="navlink" to="/">Home</NavLink>}
           {customerLoggedIn || vendorLoggedIn ? null : (
             <NavLink className="navlink" to="/signup">Sign-Up</NavLink>
           )}
           {customerLoggedIn || vendorLoggedIn ? null : (
             <NavLink className="navlink" to="/login">Log-In</NavLink>
           )}
-          <NavLink className="navlink" to="/cart">Cart</NavLink>
-          {!vendorLoggedIn ? null : (
-            <NavLink className="navlink" to="/vendor_homepage">Vendor Home Page</NavLink>
-          )}
+          {customerLoggedIn ? <NavLink className="navlink" to="/cart">Cart</NavLink> : null}
+          {vendorLoggedIn ? <NavLink className="navlink" to="/vendor_homepage">Home Page</NavLink> : null}
           {customerLoggedIn || vendorLoggedIn ? (
             <button onClick={handleLogOut}>Sign Out!</button>
           ) : null}

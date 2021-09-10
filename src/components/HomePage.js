@@ -7,8 +7,6 @@ import About from "./About";
 import VendorCard from './VendorCard'
 import Loading from "./Loading";
 
-import './HomePage.css'
-
 export default function HomePage() {
   const vendors = useSelector(state => state.vendor.vendorList)
   const isLoading = useSelector(state => state.vendor.isLoading)

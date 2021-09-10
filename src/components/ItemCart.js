@@ -6,7 +6,6 @@ import { removeItem } from "../features/cart/CartSlice"
 
 
 export default function ItemCart({ item }) {
-    const cartItems = useSelector(state => state.cartItems)
     const dispatch = useDispatch()
     const { name, price, quantity } = item
 

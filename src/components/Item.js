@@ -4,9 +4,6 @@ import { addItem } from "../features/cart/CartSlice";
 
 export default function Item({ item }) {
   const dispatch = useDispatch()
-  const cart = useSelector(state => state.cart)
-  const cartItem = useSelector(state => state.cart.item)
-  const vendor = useSelector(state => state.item.items[0].vendor.name)
   const { name, image_url, price } = item
   // const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]")
 

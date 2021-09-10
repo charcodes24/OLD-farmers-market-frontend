@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
+import { clearCart } from "../features/cart/CartSlice"
+
 import ItemCart from "./ItemCart"
 
 export default function Cart() {
@@ -9,10 +11,15 @@ export default function Cart() {
 
     console.log("CART ITEMS", cartItems)
 
+    const handleClearCart = (e) => {
+        e.preventDefault();
+        dispatch(clearCart());
+    }
+
     return (
         <div>
             <h1>Cart</h1>
-            {cartItems.map((item) => {
+            {cartItems?.map((item) => {
                 return (
                     <ItemCart
                         key={item.id}
@@ -21,7 +28,7 @@ export default function Cart() {
                 )
             })}
             <button>Checkout</button>
-            <button>Clear Cart</button>
+            <button onClick={handleClearCart}>Clear Cart</button>
         </div>
     )
 }
