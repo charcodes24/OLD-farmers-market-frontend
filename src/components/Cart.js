@@ -5,25 +5,26 @@ import { clearCart } from "../features/cart/CartSlice"
 
 import ItemCart from "./ItemCart"
 
-export default function Cart() {
+export default function Cart({ cart, removeItem, clearCart }) {
     const cartItems = useSelector(state => state.cart.cartItems)
     const dispatch = useDispatch()
 
     console.log("CART ITEMS", cartItems)
 
     const handleClearCart = (e) => {
-        e.preventDefault();
-        dispatch(clearCart());
+        e.preventDefault()
+        clearCart()
     }
 
     return (
         <div>
             <h1>Cart</h1>
-            {cartItems?.map((item) => {
+            {cart?.map((item) => {
                 return (
                     <ItemCart
                         key={item.id}
                         item={item}
+                        removeItem={removeItem}
                     />
                 )
             })}

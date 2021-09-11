@@ -4,10 +4,10 @@ import { useEffect } from "react"
 
 import { getItems } from "../features/vendor/vendorSlice"
 
-import Item from "./Item"
+import Item from "./ItemVendor"
 import Loading from "./Loading"
 
-export default function VendorPage() {
+export default function VendorPage({ addItemToCart }) {
   const { id } = useParams()
   const isLoading = useSelector((state) => state.vendor.isLoading)
   const items = useSelector((state) => state.item.items)
@@ -27,6 +27,7 @@ export default function VendorPage() {
             <Item
                 key={item.id}
                 item={item}
+                addItemToCart={addItemToCart}
             />
         )
     })

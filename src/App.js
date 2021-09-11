@@ -1,6 +1,6 @@
 
 import { Switch, Route, Redirect } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -18,18 +18,42 @@ import Cart from './components/Cart';
 import VendorHomePage from './components/VendorHomePage';
 import AddItem from './components/AddItem';
 
+const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
+
 function App() {
   const customerLoggedIn = useSelector((state) => state.allusers.customerLoggedIn);
   const vendorLoggedIn = useSelector((state) => state.allusers.vendorLoggedIn);
   const dispatch = useDispatch();
+  const [cart, setCart] = useState(cartFromLocalStorage)
 
   useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
     fetch("/loggedin").then((res) => {
       if (res.ok) {
         res.json().then((user) => dispatch(logIn(user)))
       } 
     })
-  }, []);
+  }, [cart]);
+
+  console.log(cart)
+
+  function addItemToCart(newItem) {
+    const existingItem = cart.find(item => item.id === newItem.id)
+    if (!existingItem) {
+      setCart((mostUpdatedCart) => [...mostUpdatedCart, {id: newItem.id, name: newItem.name, price: newItem.price, quantity: 1}])
+    } else {
+      existingItem.quantity++
+    }
+  }
+
+  function removeItem(id) {
+    let updatedCart = cart.filter((item) => item.id !== id)
+    setCart(updatedCart)
+  }
+
+  function clearCart() {
+    setCart([])
+  }
   
   
   return (
@@ -37,7 +61,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path="/vendors/:id">
-          <VendorPage />
+          <VendorPage addItemToCart={addItemToCart}/>
         </Route>
         <Route path="/signup">
           {customerLoggedIn || vendorLoggedIn ? <Redirect to="/" /> : <SignUp />}
@@ -53,7 +77,7 @@ function App() {
           )}
         </Route>
         <Route path="/cart">
-          <Cart />
+          <Cart cart={cart} removeItem={removeItem} clearCart={clearCart}/>
         </Route>
         <Route path="/vendor_signup">
           <VendorSignUp />

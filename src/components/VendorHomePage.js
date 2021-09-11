@@ -6,7 +6,7 @@ import { getItems } from "../features/vendor/vendorSlice"
 
 import AddItem from "./AddItem"
 import Loading from "./Loading"
-import Item from "./Item"
+import Item from "./ItemVendor"
 
 export default function VendorHomePage() {
   const dispatch = useDispatch()
